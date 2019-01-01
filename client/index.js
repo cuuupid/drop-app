@@ -1,7 +1,7 @@
 var socket;
 
 const getRandomColor = () => '#' + [0, 1, 2, 3, 4, 5].map(_ => '0123456789ABCDEF'[Math.floor(Math.random() * 16)]).join('')
-var img;
+
 var app = new Vue({
     el: '#app',
     data: {
