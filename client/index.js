@@ -20,6 +20,8 @@ var app = new Vue({
         if (username = localStorage.getItem("venmo")) {
             this.username = username
             this.screen = 'scanner'
+            setTimeout(startStream, 200)
+            // TODO: make it after the dom has updated (i think theres an updated hook)
         }
     },
     methods: {
@@ -87,6 +89,8 @@ var app = new Vue({
             // TODO: sanitize input with regex
             localStorage.setItem('venmo', this.username)
             this.screen = 'scanner'
+            setTimeout(startStream, 200)
+            // TODO: see TODO in created
         },
         onFileSelected: function (event) {
             this.selectedFile = event.target.files[0]
