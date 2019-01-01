@@ -92,16 +92,21 @@ var app = new Vue({
             setTimeout(startStream, 200)
             // TODO: see TODO in created
         },
-        onFileSelected: function (event) {
-            this.selectedFile = event.target.files[0]
-        }
-        ,
+
         scan: function () {
             // TODO: run tesseract ocr on image
+            imageCapture.takePhoto().then(function(blob) {
+                console.log('Took photo:', blob);
+                blob = JSON.parse(JSON.stringify(blob));
+                Tesseract.recognize(blob, {
+                    lang: 'engl'
+                }).then(function(result) {this.text = result})
+                
+            }).catch(function(error) {
+                console.log('takePhoto() error: ', error);
+            });
             this.screen = 'user-selection'
-            Tesseract.recognize(this.reciept, {
-                lang: 'engl'
-            }).then(function(result) {this.text = result})
+
             console.log(this.text)
 
         },
