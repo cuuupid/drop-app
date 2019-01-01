@@ -1,7 +1,84 @@
 :root {
-    --accent: #825BFF
+    --accent: #825BFF;
+    --dark-accent: #6444ca;
+    --bg: #fff;
+    --text: #000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+}
+
+.container {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.screen {
+    width: 100%;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
 }
 
 #login {
     background-color: var(--accent);
+}
+
+#login > .btn {
+    background-color: var(--bg);
+    color: var(--accent) !important;
+}
+
+.btn {
+    display: block;
+    background-color: var(--accent);
+    border-radius: 5px;
+    width: 239px;
+    height: 58px;
+    font-weight: 1000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24px;
+    color: var(--bg) !important;
+    margin: calc(50% - 119.5px);
+    bottom: 80px;
+    margin-bottom: 0px;
+    position: absolute;
+    padding-top: 10px;
+}
+
+input {
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24pt;
+    margin: auto;
+    margin-top: 70px;
+    text-align: center;
+    height: 64px;
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.logo {
+    max-width: 30%;
+    margin-top: 30vh;
+}
+
+.scan-header {
+    font-weight: 1000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24pt;
+    color: var(--text);
+    position: absolute;
+    bottom: 170px;
+    margin-bottom: 0px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.partial {
+    height: 70vh;
+    width: 100%;
+    background-color: var(--bg);
 }

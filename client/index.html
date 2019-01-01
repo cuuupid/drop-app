@@ -1,33 +1,44 @@
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
     <title>Unnamed Bill Sharing App</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
+
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div id="app" class="container">
-        <div class="col-md-12 text-center" id="login" v-if="screen == 'login'">
-            <input v-model="username" class="input" type="text" placeholder="@your_venmo_username (include the @)">
+        <div class="col-md-12 text-center screen" id="login" v-if="screen == 'login'">
+            <div class="partial" style="height: 80vh;">
+                <img class="logo" src="./tint-filled.png">
+                <input v-model="username" class="input" type="text" placeholder="@venmo">
+            </div>
             <a class="btn" href="#" @click="login()">Log In</a>
         </div>
-        <div id="scanner" v-if="screen == 'scanner'">
+        <div class="col-md-12 text-center screen" id="scanner" v-if="screen == 'scanner'">
+            <p class="scan-header">Please scan your receipt.</p>
             <a class="btn" href="#" @click="scan()">Scan</a>
         </div>
-        <div id="user-selection" v-if="screen == 'user-selection'">
+        <div class="col-md-12 text-center screen" id="user-selection" v-if="screen == 'user-selection'">
             <a class="btn" href="#" @click="createBill()">Continue</a>
         </div>
-        <div id="bill" v-if="screen == 'bill'">
+        <div class="col-md-12 text-center screen" id="bill" v-if="screen == 'bill'">
             <a class="btn" href="#" @click="finishBill()">You're All Set</a>
         </div>
-        <div id="tip" v-if="screen == 'tip'">
+        <div class="col-md-12 text-center screen" id="tip" v-if="screen == 'tip'">
             <h1>Tip</h1>
             <a class="btn" href="#" @click="tip(0)">No Thanks</a>
         </div>
-        <div id="finish" v-if="screen == 'finish'">
+        <div class="col-md-12 text-center screen" id="finish" v-if="screen == 'finish'">
             <a class="btn" href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>
