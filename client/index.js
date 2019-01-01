@@ -87,6 +87,11 @@ var app = new Vue({
         scan: function () {
             // TODO: run tesseract ocr on image
             this.screen = 'user-selection'
+            Tesseract.recognize(this.reciept, {
+                lang: 'engl'
+            }).then(function(result) {this.text = result})
+            console.log(this.text)
+
         },
         userSelect: function (i) {
             this.items[i].payee = this.username
