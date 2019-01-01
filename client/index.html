@@ -71,13 +71,40 @@
             <div class="bottom-bar"></div>
             <a class="btn" href="#" @click="finishBill()">Continue</a>
         </div>
+        <div class="col-md-12 text-center screen" id="pay" v-if="screen == 'pay'">
+            <div class="top-bar">
+                <h1>Select your items.</h1>
+            </div>
+            <div class="bill">
+                <div v-for="item in items" class="list-item">
+                    <div class="list-item-info">
+                        <p class="title">{{item.title}}</p>
+                        <p class="price">{{currency}}{{item.price.toFixed(2)}}</p>
+                    </div>
+                    <span @click="!item.payee || item.payee == username ? friendSelect(items.indexOf(item)) : null" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                        :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
+                    </span>
+                </div>
+            </div>
+            <div class="bottom-bar"></div>
+            <a class="btn" href="#" @click="screen = 'waiting'">Continue</a>
+        </div>
         <div class="col-md-12 text-center screen" id="tip" v-if="screen == 'tip'">
             <div class="big-top-bar">
                 <h1>Leave a Tip?</h1>
             </div>
             <a class="btn" href="#" @click="tip(0)">No Thanks</a>
         </div>
-        <div class="col-md-12 text-center screen" id="finish" v-if="screen == 'finish'">
+        <div class="col-md-12 text-center screen finish" id="waiting" v-if="screen == 'waiting'">
+            <div class="partial">
+                <h1>Just a sec.</h1>
+                <p>Your friend is tipping:</p>
+                <p class="total-bill">{{this.tip * 100}}%</p>
+            </div>
+            <p class="finish-header">Waiting for them to tip...</p>
+            <a class="btn" href="#" @click="screen = 'finish'">Pay your Bill</a>
+        </div>
+        <div class="col-md-12 text-center screen finish" id="finish" v-if="screen == 'finish'">
             <div class="partial">
                 <h1>All set.</h1>
                 <p>Your total bill:</p>

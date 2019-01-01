@@ -1,10 +1,12 @@
 var socket;
 
+const getRandomColor = () => '#' + [0, 1, 2, 3, 4, 5].map(_ => '0123456789ABCDEF'[Math.floor(Math.random() * 16)]).join('')
+
 var app = new Vue({
     el: '#app',
     data: {
         username: '',
-        screen: 'login',
+        screen: window.location.href.indexOf('?pay=') > -1 ? 'pay' : 'login',
         items: [],
         tipAmount: 0,
         currency: '£',
@@ -19,9 +21,10 @@ var app = new Vue({
         let username
         if (username = localStorage.getItem("venmo")) {
             this.username = username
-            this.screen = 'scanner'
-            setTimeout(startStream, 200)
+            this.screen = window.location.href.indexOf('?pay=') > -1 ? 'pay' : 'scanner'
+            if (this.screen == 'scanner') setTimeout(startStream, 200)
             // TODO: make it after the dom has updated (i think theres an updated hook)
+            if (this.screen == 'pay') this.joinBill()
         }
     },
     methods: {
@@ -88,11 +91,11 @@ var app = new Vue({
             if (!(this.username.startsWith('@') && this.username.length > 3)) return;
             // TODO: sanitize input with regex
             localStorage.setItem('venmo', this.username)
-            this.screen = 'scanner'
-            setTimeout(startStream, 200)
+            this.screen = window.location.href.indexOf('?pay=') > -1 ? 'pay' : 'scanner'
+            if (this.screen == 'scanner') setTimeout(startStream, 200)
             // TODO: see TODO in created
+            if (this.screen == 'pay') this.joinBill()
         },
-
         scan: function () {
             // TODO: run tesseract ocr on image
             imageCapture.takePhoto().then(function(blob) {
@@ -107,9 +110,7 @@ var app = new Vue({
                 console.log('takePhoto() error: ', error);
             });
             this.screen = 'user-selection'
-
             console.log(this.text)
-
         },
         userSelect: function (i) {
             this.items[i].payee = this.items[i].payee == this.username ? '' : this.username
@@ -128,15 +129,80 @@ var app = new Vue({
             socket = io.connect('https://billsplit-server.now.sh')
             let prefs = {
                 user: this.username,
-                room: this.username
+                room: this.username.toLowerCase()
             }
             console.log(prefs)
             socket.on('connect', () => {
                 socket.on('join', user => app.sendBill(user))
                 socket.on('bill', bill => console.log("Got bill."))
+                socket.on('select', this.friendSelected)
+                socket.on('deselect', this.friendDeselected)
                 socket.emit('join', prefs)
             })
             this.screen = 'bill'
+        },
+        joinBill: function () {
+            socket = io.connect('https://billsplit-server.now.sh')
+            let payTo = window.location.href.split('?').reduceRight(_ => _).split('=').reduceRight(_ => _).split('#')[0].toLowerCase()
+            console.log('paying', payTo)
+            let prefs = {
+                user: this.username,
+                room: payTo
+            }
+            socket.on('connect', () => {
+                socket.on('bill', bill => {
+                    console.log("Got bill.", bill)
+                    this.items = bill.items
+                    this.items.map(item => {
+                        if (item.payee && item.payee != this.username) {
+                            let friend = item.payee
+                            if (this.payees.indexOf(friend) < 0) {
+                                this.payees.push(friend)
+                                this.colors.push(getRandomColor())
+                            }
+                        }
+                    })
+                    this.tip = bill.tip || this.tip
+                })
+                socket.on('select', this.friendSelected)
+                socket.on('deselect', this.friendDeselected)
+                socket.emit('join', prefs)
+            })
+        },
+        friendSelect: function (i) {
+            let mode = 'void'
+            if (this.items[i].payee == this.username) {
+                this.items[i].payee = ''
+                mode = 'deselect'
+            } else {
+                this.items[i].payee = this.username
+                mode = 'select'
+            }
+            let payload = {
+                user: this.username,
+                itemIndex: i
+            }
+            socket.emit(mode, payload)
+        },
+        friendSelected: function (data) {
+            console.log('select', data)
+            let friend = data.user
+            let i = data.itemIndex
+            if (this.payees.indexOf(friend) < 0) {
+                this.payees.push(friend)
+                this.colors.push(getRandomColor())
+            }
+            this.items[i].payee = friend
+        },
+        friendDeselected: function (data) {
+            console.log('deselect', data)
+            let friend = data.user
+            let i = data.itemIndex
+            if (this.payees.indexOf(friend) < 0) {
+                this.payees.push(friend)
+                this.colors.push(getRandomColor())
+            }
+            this.items[i].payee = ''
         },
         sendBill: function (user) {
             console.log('Sending bill to', user)
@@ -168,7 +234,17 @@ var app = new Vue({
                 }),
                 tip: this.tipAmount
             }
-            // TODO: send bill to room
+            let bill = {
+                items: this.items.map(item => {
+                    return {
+                        title: item.title,
+                        price: item.price,
+                        payee: item.payee
+                    }
+                }),
+                tip: this.tip
+            }
+            socket.emit('finish', bill)
             this.screen = 'finish'
         },
         makeReport: function () {
