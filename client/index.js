@@ -96,7 +96,9 @@ var app = new Vue({
         scan: async function () {
             // TODO: run tesseract ocr on image
             let ctx = document.createElement('canvas')
-            ctx.getContext('2d').drawImage(video, 0, 0, video.width, video.height, 0, 0, video.width, video.height)
+            ctx.width = video.videoWidth
+            ctx.height = video.videoHeight
+            ctx.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
             let img = ctx.toDataURL('image/png')
             this.screen = 'user-selection'
             let result = await Tesseract.recognize(img, { lang: 'eng' }).catch(e => e ? console.error(e) : null)
