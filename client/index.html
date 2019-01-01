@@ -32,6 +32,7 @@
         </div>
         <div class="col-md-12 text-center screen" id="scanner" v-if="screen == 'scanner'">
             <p class="scan-header">Please scan your receipt.</p>
+            <input v-model = "reciept" type="file" name="reciept" accept="image/*">
             <a class="btn" href="#" @click="scan()">Scan</a>
         </div>
         <div class="col-md-12 text-center screen" id="user-selection" v-if="screen == 'user-selection'">
@@ -75,6 +76,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script src='https://cdn.jsdelivr.net/gh/naptha/tesseract.js@v1.0.14/dist/tesseract.min.js'></script>
     <script src="./index.js"></script>
 </body>
 
