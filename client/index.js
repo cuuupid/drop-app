@@ -1,8 +1,12 @@
+var socket;
+
 var app = new Vue({
     el: '#app',
     data: {
-        venmo_username: '',
-        screen: 'login'
+        username: '',
+        screen: 'login',
+        items: [],
+        tipAmount: 0
     },
     created: function () {
         if (localStorage.getItem("venmo")) {
@@ -14,7 +18,7 @@ var app = new Vue({
     methods: {
         login: function () {
             // TODO: sanitize input
-            localStorage.setItem('venmo', this.venmo_username)
+            localStorage.setItem('venmo', this.username)
             this.screen = 'scanner'
         },
         scan: function () {
@@ -22,30 +26,58 @@ var app = new Vue({
             this.screen = 'user-selection'
         },
         createBill: function () {
-            // TODO: create a bill
-            // TODO: join socket
-            // TODO: create room based on username
-            // TODO: send bill to room
+            let bill = {
+                items: this.items.map(item => {
+                    return {
+                        title: item.title,
+                        price: item.price,
+                        payee: item.payee
+                    }
+                }),
+                tip: this.tip
+            }
+            socket = io.connect('http://localhost')
+            let prefs = {
+                user: this.username,
+                room: this.username
+            }
+            console.log(prefs)
+            socket.on('connect', () => {
+                socket.on('join', user => app.sendBill(user))
+                socket.emit('join', prefs)
+            })
             this.screen = 'bill'
+        },
+        sendBill: function (user) {
+            console.log(user)
+            let bill = {
+                items: this.items.map(item => {
+                    return {
+                        title: item.title,
+                        price: item.price,
+                        payee: item.payee
+                    }
+                }),
+                tip: this.tip
+            }
+            socket.emit('bill', bill)
         },
         finishBill: function () {
             // TODO: finish bill
             this.screen = 'tip'
         },
         tip: function (amount) {
-            // TODO: create final bill, in format:
-            /*
-                {
-                    items: [
-                        {
-                            title: String,
-                            price: Number,
-                            payee: String
-                        }
-                    ],
-                    tip: Number
-                }
-            */
+            this.tipAmount = amount
+            let bill = {
+                items: this.items.map(item => {
+                    return {
+                        title: item.title,
+                        price: item.price,
+                        payee: item.payee
+                    }
+                }),
+                tip: this.tipAmount
+            }
             // TODO: send bill to room
             this.screen = 'finish'
         },

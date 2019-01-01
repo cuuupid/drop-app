@@ -7,7 +7,7 @@
 <body>
     <div id="app">
         <div id="login" v-if="screen == 'login'">
-            <input v-model="venmo_username" class="input" type="text" placeholder="@your_venmo_username (include the @)">
+            <input v-model="username" class="input" type="text" placeholder="@your_venmo_username (include the @)">
             <a href="#" @click="login()">Log In</a>
         </div>
         <div id="scanner" v-if="screen == 'scanner'">
@@ -27,6 +27,7 @@
             <a href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script src="./index.js"></script>
 </body>
