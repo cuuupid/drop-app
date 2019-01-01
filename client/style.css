@@ -213,3 +213,10 @@ h1 {
     padding-top: 39px;
     margin-bottom: 170px;
 }
+
+video {
+    position: absolute;
+    max-width: 100%;
+    left: 0;
+    height: 70vh;
+}

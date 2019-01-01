@@ -32,31 +32,8 @@
         </div>
         <div class="col-md-12 text-center screen" id="scanner" v-if="screen == 'scanner'">
             <p class="scan-header">Please scan your receipt.</p>
-            <input type="file" name="reciept" accept="image/*" @change="onFileSelected">
-            <video id="player" controls autoplay></video>
+            <video autoplay></video>
             <a class="btn" href="#" @click="scan()">Scan</a>
-            <canvas id="canvas" width=320 height=240></canvas>
-            <script>
-              const player = document.getElementById('player');
-              const canvas = document.getElementById('canvas');
-              const context = canvas.getContext('2d');
-              const captureButton = document.getElementById('capture');
-            
-              const constraints = {
-                video: true,
-              };
-            
-              captureButton.addEventListener('click', () => {
-                // Draw the video frame to the canvas.
-                context.drawImage(player, 0, 0, canvas.width, canvas.height);
-              });
-            
-              // Attach the video stream to the video element and autoplay.
-              navigator.mediaDevices.getUserMedia(constraints)
-                .then((stream) => {
-                  player.srcObject = stream;
-                });
-            </script>
         </div>
         <div class="col-md-12 text-center screen" id="user-selection" v-if="screen == 'user-selection'">
             <div class="top-bar">
@@ -115,6 +92,14 @@
             <a class="btn" href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>
+    <script>
+        function startStream() {
+            const video = document.querySelector('video')
+
+            navigator.mediaDevices.getUserMedia({ video: true }).
+                then(stream => { video.srcObject = stream })
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script src='https://cdn.jsdelivr.net/gh/naptha/tesseract.js@v1.0.14/dist/tesseract.min.js'></script>
