@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
 
@@ -29,16 +29,30 @@
             <a class="btn" href="#" @click="scan()">Scan</a>
         </div>
         <div class="col-md-12 text-center screen" id="user-selection" v-if="screen == 'user-selection'">
+            <div class="top-bar">
+                <h1>Select your items.</h1>
+            </div>
             <a class="btn" href="#" @click="createBill()">Continue</a>
         </div>
         <div class="col-md-12 text-center screen" id="bill" v-if="screen == 'bill'">
-            <a class="btn" href="#" @click="finishBill()">You're All Set</a>
+            <div class="top-bar">
+                <h1>Have others scan.</h1>
+            </div>
+            <a class="btn" href="#" @click="finishBill()">Continue</a>
         </div>
         <div class="col-md-12 text-center screen" id="tip" v-if="screen == 'tip'">
-            <h1>Tip</h1>
+            <div class="big-top-bar">
+                <h1>Leave a Tip?</h1>
+            </div>
             <a class="btn" href="#" @click="tip(0)">No Thanks</a>
         </div>
         <div class="col-md-12 text-center screen" id="finish" v-if="screen == 'finish'">
+            <div class="partial">
+                <h1>All set.</h1>
+                <p>Your total bill:</p>
+                <p class="total-bill">£147.71</p>
+            </div>
+            <p class="finish-header">We've gone ahead and billed your friends.</p>
             <a class="btn" href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>

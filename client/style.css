@@ -67,7 +67,7 @@ img {
 .scan-header {
     font-weight: 1000;
     font-family: 'Lato', 'Avenir', sans-serif;
-    font-size: 24pt;
+    font-size: 24px;
     color: var(--text);
     position: absolute;
     bottom: 170px;
@@ -81,4 +81,74 @@ img {
     height: 70vh;
     width: 100%;
     background-color: var(--bg);
+}
+
+.top-bar {
+    height: 94px;
+    width: 100%;
+    background-color: var(--accent);
+    margin-top: 0px;
+}
+
+h1 {
+    font-weight: 1000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24px;
+    margin: auto;
+    color: var(--bg);
+}
+
+.top-bar > h1 {
+    line-height: 94px;
+}
+
+.big-top-bar {
+    height: 30vh;
+    width: 100%;
+    background-color: var(--accent);
+    margin-top: 0px;
+}
+
+.big-top-bar > h1 {
+    font-size: 48px;
+    line-height: 140px;
+    padding-top: calc(30vh - 140px);
+}
+
+#finish > .partial {
+    height: 62vh;
+    background-color: var(--accent);
+}
+
+.finish-header {
+    font-weight: 1000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24px;
+    color: var(--text);
+    position: absolute;
+    bottom: 170px;
+    margin-bottom: 0px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#finish > .partial > h1 {
+    font-size: 48px;
+    line-height: 140px;
+    padding-top: calc(30vh - 140px);
+    padding-bottom: 5vh;
+}
+
+#finish > .partial > p {
+    font-weight: 1000;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 24px;
+    color: var(--bg);
+}
+
+#finish > .partial > p.total-bill {
+    font-size: 72px;
 }
