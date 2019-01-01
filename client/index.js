@@ -1,7 +1,7 @@
 var socket;
 
 const getRandomColor = () => '#' + [0, 1, 2, 3, 4, 5].map(_ => '0123456789ABCDEF'[Math.floor(Math.random() * 16)]).join('')
-
+var img;
 var app = new Vue({
     el: '#app',
     data: {
@@ -12,10 +12,7 @@ var app = new Vue({
         currency: '£',
         payees: [],
         colors: [],
-        reciept: '',
-        video: {},
-        canvas: {},
-        captures: []
+        receipt: '',
     },
     created: function () {
         let username
@@ -96,21 +93,15 @@ var app = new Vue({
             // TODO: see TODO in created
             if (this.screen == 'pay') this.joinBill()
         },
-        scan: function () {
+        scan: async function () {
             // TODO: run tesseract ocr on image
-            imageCapture.takePhoto().then(function(blob) {
-                console.log('Took photo:', blob);
-                var img = new Image();
-                img.src = URL.createObjectURL(blob);
-                Tesseract.recognize(img, {
-                    lang: 'eng'
-                }).then(function(result) {this.text = result})
-                
-            }).catch(function(error) {
-                console.log('takePhoto() error: ', error);
-            });
+            let ctx = document.createElement('canvas')
+            ctx.getContext('2d').drawImage(video, 0, 0, video.width, video.height, 0, 0, video.width, video.height)
+            let img = ctx.toDataURL('image/png')
             this.screen = 'user-selection'
-            console.log(this.text)
+            let result = await Tesseract.recognize(img, { lang: 'eng' }).catch(e => e ? console.error(e) : null)
+            if (!!!result) return console.error('No result!!!')
+            this.receipt = result
         },
         userSelect: function (i) {
             this.items[i].payee = this.items[i].payee == this.username ? '' : this.username

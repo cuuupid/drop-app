@@ -115,9 +115,11 @@
         </div>
     </div>
     <script>
-        var imageCapture;
+        var imageCapture, video;
         function startStream() {
-            const video = document.querySelector('video')
+            video = document.querySelector('video')
+            video.width = $('video').width()
+            video.height = $('video').height()
             navigator.mediaDevices.getUserMedia({
                 video: true
                 /*
@@ -128,14 +130,6 @@
                 }
                 */
             }).then(stream => { video.srcObject = stream; imageCapture = new ImageCapture(stream.getVideoTracks()[0]);})
-        }
-        function takePhoto() {
-            imageCapture.takePhoto().then(function(blob) {
-                console.log('Took photo:', blob);
-                img.src = URL.createObjectURL(blob);
-            }).catch(function(error) {
-                console.log('takePhoto() error: ', error);
-            });
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
