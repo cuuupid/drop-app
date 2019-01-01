@@ -93,6 +93,9 @@ var app = new Vue({
             console.log(this.text)
 
         },
+        userSelect: function (i) {
+            this.items[i].payee = this.username
+        },
         createBill: function () {
             let bill = {
                 items: this.items.map(item => {
