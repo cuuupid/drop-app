@@ -2,29 +2,33 @@
 
 <head>
     <title>Unnamed Bill Sharing App</title>
+    <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        <div id="login" v-if="screen == 'login'">
+    <div id="app" class="container">
+        <div class="col-md-12 text-center" id="login" v-if="screen == 'login'">
             <input v-model="username" class="input" type="text" placeholder="@your_venmo_username (include the @)">
-            <a href="#" @click="login()">Log In</a>
+            <a class="btn" href="#" @click="login()">Log In</a>
         </div>
         <div id="scanner" v-if="screen == 'scanner'">
-            <a href="#" @click="scan()">Scan</a>
+            <a class="btn" href="#" @click="scan()">Scan</a>
         </div>
         <div id="user-selection" v-if="screen == 'user-selection'">
-            <a href="#" @click="createBill()">Continue</a>
+            <a class="btn" href="#" @click="createBill()">Continue</a>
         </div>
         <div id="bill" v-if="screen == 'bill'">
-            <a href="#" @click="finishBill()">You're All Set</a>
+            <a class="btn" href="#" @click="finishBill()">You're All Set</a>
         </div>
         <div id="tip" v-if="screen == 'tip'">
             <h1>Tip</h1>
-            <a href="#" @click="tip(0)">No Thanks</a>
+            <a class="btn" href="#" @click="tip(0)">No Thanks</a>
         </div>
         <div id="finish" v-if="screen == 'finish'">
-            <a href="#" @click="makeReport()">View the Bill</a>
+            <a class="btn" href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>

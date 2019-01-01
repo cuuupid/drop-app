@@ -1,0 +1,7 @@
+:root {
+    --accent: #825BFF
+}
+
+#login {
+    background-color: var(--accent);
+}

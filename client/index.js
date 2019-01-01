@@ -36,7 +36,7 @@ var app = new Vue({
                 }),
                 tip: this.tip
             }
-            socket = io.connect('http://localhost')
+            socket = io.connect('https://billsplit-server.now.sh')
             let prefs = {
                 user: this.username,
                 room: this.username
@@ -44,12 +44,13 @@ var app = new Vue({
             console.log(prefs)
             socket.on('connect', () => {
                 socket.on('join', user => app.sendBill(user))
+                socket.on('bill', bill => console.log("Got bill."))
                 socket.emit('join', prefs)
             })
             this.screen = 'bill'
         },
         sendBill: function (user) {
-            console.log(user)
+            console.log('Sending bill to', user)
             let bill = {
                 items: this.items.map(item => {
                     return {
