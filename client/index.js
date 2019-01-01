@@ -97,8 +97,9 @@ var app = new Vue({
             // TODO: run tesseract ocr on image
             imageCapture.takePhoto().then(function(blob) {
                 console.log('Took photo:', blob);
-                blob = JSON.parse(JSON.stringify(blob));
-                Tesseract.recognize(blob, {
+                var img = new Image();
+                img.src = URL.createObjectURL(blob);
+                Tesseract.recognize(img, {
                     lang: 'engl'
                 }).then(function(result) {this.text = result})
                 
