@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Unnamed Bill Sharing App</title>
+    </head>
+    <body>
+        <div id="app">
+            <p @click="sayHello()" v-if="message == 'hello'">Click me to say {{message}}</p>
+            <p v-if="message != 'hello'">{{message}}</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>
