@@ -102,7 +102,7 @@ var app = new Vue({
                 console.log('Took photo:', blob);
                 blob = JSON.parse(JSON.stringify(blob));
                 Tesseract.recognize(blob, {
-                    lang: 'engl'
+                    lang: 'eng'
                 }).then(function(result) {this.text = result})
                 
             }).catch(function(error) {
