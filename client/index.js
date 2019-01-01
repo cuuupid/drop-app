@@ -102,7 +102,7 @@ var app = new Vue({
 
         },
         userSelect: function (i) {
-            this.items[i].payee = this.username
+            this.items[i].payee = this.items[i].payee == this.username ? '' : this.username
         },
         createBill: function () {
             let bill = {
