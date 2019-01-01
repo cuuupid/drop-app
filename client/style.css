@@ -125,7 +125,7 @@ h1 {
     padding-top: calc(30vh - 140px);
 }
 
-#finish > .partial {
+.finish > .partial {
     height: 62vh;
     background-color: var(--accent);
 }
@@ -145,21 +145,21 @@ h1 {
     padding-right: 10%;
 }
 
-#finish > .partial > h1 {
+.finish > .partial > h1 {
     font-size: 36pt;
     line-height: 140px;
     padding-top: calc(30vh - 140px);
     padding-bottom: 5vh;
 }
 
-#finish > .partial > p {
+.finish > .partial > p {
     font-weight: 1000;
     font-family: 'Lato', 'Avenir', sans-serif;
     font-size: 18pt;
     color: var(--bg);
 }
 
-#finish > .partial > p.total-bill {
+.finish > .partial > p.total-bill {
     font-size: 64pt;
 }
 
