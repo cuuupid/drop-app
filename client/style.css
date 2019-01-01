@@ -41,7 +41,7 @@
     margin: calc(50% - 119.5px);
     bottom: 80px;
     margin-bottom: 0px;
-    position: absolute;
+    position: fixed;
     padding-top: 10px;
 }
 
@@ -88,6 +88,15 @@ img {
     width: 100%;
     background-color: var(--accent);
     margin-top: 0px;
+}
+
+.bottom-bar {
+    height: 160px;
+    width: 100%;
+    bottom: 0;
+    margin-bottom: 0px;
+    position: fixed;
+    background-color: var(--bg);
 }
 
 h1 {
@@ -151,4 +160,47 @@ h1 {
 
 #finish > .partial > p.total-bill {
     font-size: 64pt;
+}
+
+.list-item > .list-item-info {
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 70%;
+    border-bottom: rgba(151,151,151, 0.5) solid 1px;
+}
+
+.list-item > .list-item-info > p {
+    font-weight: 400;
+    font-family: 'Lato', 'Avenir', sans-serif;
+    font-size: 16pt;
+    display: inline-block;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.list-item > .list-item-info > p.title {
+    opacity: 0.74;
+    width: 70%;
+    text-align: left;
+}
+
+.list-item > .list-item-info > p.price {
+    width: 28.5%;
+    text-align: right;
+}
+
+.checkbox {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    margin-left: 5%;
+    border-radius: 5px;
+    background-color: var(--bg);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
+}
+
+.bill {
+    padding-top: 39px;
+    margin-bottom: 170px;
 }

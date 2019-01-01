@@ -6,7 +6,10 @@ var app = new Vue({
         username: '',
         screen: 'login',
         items: [],
-        tipAmount: 0
+        tipAmount: 0,
+        currency: '£',
+        payees: [],
+        colors: []
     },
     created: function () {
         let username
@@ -16,6 +19,65 @@ var app = new Vue({
         }
     },
     methods: {
+        createDummyData: function () {
+            this.items = [
+                {
+                    title: 'Silver Spoon Sugar',
+                    price: 0.99,
+                    payee: ''
+                },
+                {
+                    title: 'Bullingdon Club Sandwich',
+                    price: 2.45,
+                    payee: ''
+                },
+                {
+                    title: 'Filthy Rich Tea Biscuits',
+                    price: 1.49,
+                    payee: ''
+                },
+                {
+                    title: 'Sam Camambert',
+                    price: 2.65,
+                    payee: ''
+                },
+                {
+                    title: 'Badger Burgers',
+                    price: 1.49,
+                    payee: ''
+                },
+                {
+                    title: 'Scottish Salmond',
+                    price: 5.99,
+                    payee: ''
+                },
+                {
+                    title: 'Billionaire\'s Shortbread',
+                    price: 99.00,
+                    payee: ''
+                },
+                {
+                    title: 'Wealthy Donor Kebab',
+                    price: 2.50,
+                    payee: ''
+                },
+                {
+                    title: 'Eton Mess',
+                    price: 3.95,
+                    payee: ''
+                },
+                {
+                    title: 'Dandelion & Murdoch',
+                    price: 0.99,
+                    payee: ''
+                },
+                {
+                    title: 'Boris Johnson\'s Baby Powder',
+                    price: 1.99,
+                    payee: ''
+                }
+            ]
+        },
         login: function () {
             if (!(this.username.startsWith('@') && this.username.length > 3)) return;
             // TODO: sanitize input with regex
