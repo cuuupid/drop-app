@@ -33,7 +33,7 @@
         <div class="col-md-12 text-center screen" id="scanner" v-if="screen == 'scanner'">
             <p class="scan-header">Please scan your receipt.</p>
             <video autoplay></video>
-            <a class="btn" href="#" @click="scan()">Scan</a>
+            <a class="btn" href="#" @click="scan()" id="scan">Scan</a>
         </div>
         <div class="col-md-12 text-center screen" id="user-selection" v-if="screen == 'user-selection'">
             <div class="top-bar">
@@ -115,9 +115,9 @@
         </div>
     </div>
     <script>
+        var imageCapture;
         function startStream() {
             const video = document.querySelector('video')
-
             navigator.mediaDevices.getUserMedia({
                 video: true
                 /*
@@ -127,8 +127,15 @@
                     } 
                 }
                 */
-            }).
-                then(stream => { video.srcObject = stream })
+            }).then(stream => { video.srcObject = stream; imageCapture = new ImageCapture(stream.getVideoTracks()[0]);})
+        }
+        function takePhoto() {
+            imageCapture.takePhoto().then(function(blob) {
+                console.log('Took photo:', blob);
+                img.src = URL.createObjectURL(blob);
+            }).catch(function(error) {
+                console.log('takePhoto() error: ', error);
+            });
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
