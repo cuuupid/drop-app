@@ -96,7 +96,13 @@
         function startStream() {
             const video = document.querySelector('video')
 
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }}).
+            navigator.mediaDevices.getUserMedia({ video: 
+                { facingMode: 
+                    { 
+                        exact: "user" // "environment"
+                    } 
+                }
+            }).
                 then(stream => { video.srcObject = stream })
         }
     </script>
