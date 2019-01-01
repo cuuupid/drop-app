@@ -9,7 +9,11 @@ var app = new Vue({
         tipAmount: 0,
         currency: '£',
         payees: [],
-        colors: []
+        colors: [],
+        reciept: '',
+        video: {},
+        canvas: {},
+        captures: []
     },
     created: function () {
         let username
@@ -84,6 +88,10 @@ var app = new Vue({
             localStorage.setItem('venmo', this.username)
             this.screen = 'scanner'
         },
+        onFileSelected: function (event) {
+            this.selectedFile = event.target.files[0]
+        }
+        ,
         scan: function () {
             // TODO: run tesseract ocr on image
             this.screen = 'user-selection'
