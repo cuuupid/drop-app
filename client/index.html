@@ -44,7 +44,11 @@
                         <p class="title">{{item.title}}</p>
                         <p class="price">{{currency}}{{item.price}}</p>
                     </div>
-                    <a href="#"><span :class="['checkbox', item.payee ? 'unchecked' : colors[payees.indexOf(item.payee)]]"></span></a>
+                    <a href="#">
+                        <span @click="userSelect(items.indexOf(item))" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                            :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
+                        </span>
+                    </a>
                 </div>
             </div>
             <div class="bottom-bar"></div>

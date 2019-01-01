@@ -88,6 +88,9 @@ var app = new Vue({
             // TODO: run tesseract ocr on image
             this.screen = 'user-selection'
         },
+        userSelect: function (i) {
+            this.items[i].payee = this.username
+        },
         createBill: function () {
             let bill = {
                 items: this.items.map(item => {
