@@ -4,8 +4,9 @@
     </head>
     <body>
         <div id="app">
-            <p @click="sayHello()" v-if="message == 'hello'">Click me to say {{message}}</p>
-            <p v-if="message != 'hello'">{{message}}</p>
+            <h1>{{appname}}</h1>
+            <input v-model="venmo_username" class="input" type="text" placeholder="Venmo">
+            <button v-on:click="login">Log In</button>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
         <script src="./index.js"></script>
