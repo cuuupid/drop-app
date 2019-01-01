@@ -192,6 +192,7 @@ h1 {
 }
 
 .checkbox {
+    cursor: pointer;
     display: inline-block;
     width: 27px;
     height: 27px;
