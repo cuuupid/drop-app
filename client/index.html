@@ -45,12 +45,9 @@
                         <p class="title">{{item.title}}</p>
                         <p class="price">{{currency}}{{item.price.toFixed(2)}}</p>
                     </div>
-                    <a href="#">
-                        <!-- TODO: fix bug that resets scroll on check -->
-                        <span @click="userSelect(items.indexOf(item))" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
-                            :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
-                        </span>
-                    </a>
+                    <span @click="userSelect(items.indexOf(item))" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                        :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
+                    </span>
                 </div>
             </div>
             <div class="bottom-bar"></div>
@@ -66,11 +63,9 @@
                         <p class="title">{{item.title}}</p>
                         <p class="price">{{currency}}{{item.price.toFixed(2)}}</p>
                     </div>
-                    <a href="#">
-                        <span :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
-                            :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
-                        </span>
-                    </a>
+                    <span :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                        :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
+                    </span>
                 </div>
             </div>
             <div class="bottom-bar"></div>
