@@ -46,6 +46,7 @@
                         <p class="price">{{currency}}{{item.price}}</p>
                     </div>
                     <a href="#">
+                        <!-- TODO: fix bug that resets scroll on check -->
                         <span @click="userSelect(items.indexOf(item))" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
                             :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
                         </span>
@@ -58,6 +59,19 @@
         <div class="col-md-12 text-center screen" id="bill" v-if="screen == 'bill'">
             <div class="top-bar">
                 <h1>Have others scan.</h1>
+            </div>
+            <div class="bill">
+                <div v-for="item in items" v-if="item.payee != username" class="list-item">
+                    <div class="list-item-info">
+                        <p class="title">{{item.title}}</p>
+                        <p class="price">{{currency}}{{item.price}}</p>
+                    </div>
+                    <a href="#">
+                        <span :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                            :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
+                        </span>
+                    </a>
+                </div>
             </div>
             <div class="bottom-bar"></div>
             <a class="btn" href="#" @click="finishBill()">Continue</a>
