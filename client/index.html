@@ -8,23 +8,23 @@
     <div id="app">
         <div id="login" v-if="screen == 'login'">
             <input v-model="venmo_username" class="input" type="text" placeholder="@your_venmo_username (include the @)">
-            <a @click="login()">Log In</a>
+            <a href="#" @click="login()">Log In</a>
         </div>
         <div id="scanner" v-if="screen == 'scanner'">
-            <a @click="scan()">Scan</a>
+            <a href="#" @click="scan()">Scan</a>
         </div>
         <div id="user-selection" v-if="screen == 'user-selection'">
-            <a @click="createBill()">Continue</a>
+            <a href="#" @click="createBill()">Continue</a>
         </div>
         <div id="bill" v-if="screen == 'bill'">
-            <a @click="finishBill()">You're All Set</a>
+            <a href="#" @click="finishBill()">You're All Set</a>
         </div>
         <div id="tip" v-if="screen == 'tip'">
             <h1>Tip</h1>
-            <a @click="tip(0)">No Thanks</a>
+            <a href="#" @click="tip(0)">No Thanks</a>
         </div>
         <div id="finish" v-if="screen == 'finish'">
-            <a @click="makeReport()">View the Bill</a>
+            <a href="#" @click="makeReport()">View the Bill</a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
