@@ -9,15 +9,16 @@ var app = new Vue({
         tipAmount: 0
     },
     created: function () {
-        if (localStorage.getItem("venmo")) {
-            // TODO: redirect to scanning page 
-        } else {
-            // TODO: redirect to login page
+        let username
+        if (username = localStorage.getItem("venmo")) {
+            this.username = username
+            this.screen = 'scanner'
         }
     },
     methods: {
         login: function () {
-            // TODO: sanitize input
+            if (!(this.username.startsWith('@') && this.username.length > 3)) return;
+            // TODO: sanitize input with regex
             localStorage.setItem('venmo', this.username)
             this.screen = 'scanner'
         },
