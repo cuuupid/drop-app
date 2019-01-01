@@ -11,7 +11,9 @@
             <a href="#" @click="login()">Log In</a>
         </div>
         <div id="scanner" v-if="screen == 'scanner'">
+            <input v-model = "reciept" type="file" name="reciept" accept="image/*">
             <a href="#" @click="scan()">Scan</a>
+            
         </div>
         <div id="user-selection" v-if="screen == 'user-selection'">
             <a href="#" @click="createBill()">Continue</a>

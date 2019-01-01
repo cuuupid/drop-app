@@ -2,7 +2,9 @@ var app = new Vue({
     el: '#app',
     data: {
         venmo_username: '',
-        screen: 'login'
+        screen: 'login',
+        text: '',
+        reciept: ''
     },
     created: function () {
         if (localStorage.getItem("venmo")) {
@@ -20,6 +22,10 @@ var app = new Vue({
         scan: function () {
             // TODO: run tesseract ocr on image
             this.screen = 'user-selection'
+            Tesseract.recognize(this.reciept, {
+                lang: 'engl'
+            }).then(function(result) {this.text = result})
+            console.log(this.text)
         },
         createBill: function () {
             // TODO: create a bill
