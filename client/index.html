@@ -83,7 +83,8 @@
                         <p class="title">{{item.title}}</p>
                         <p class="price">{{currency}}{{item.price.toFixed(2)}}</p>
                     </div>
-                    <span @click="!item.payee || item.payee == username ? friendSelect(items.indexOf(item)) : null" :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
+                    <span @click="!item.payee || item.payee == username ? friendSelect(items.indexOf(item)) : null"
+                        :class="['checkbox', !item.payee ? 'unchecked' : (item.payee == username ? 'user-checked' : 'friend-checked')]"
                         :style="(item.payee && item.payee != username) ? 'background-color: ' + colors[payees.indexOf(item.payee)] : ''">
                     </span>
                 </div>
@@ -124,12 +125,21 @@
             video.height = $('video').height()
             navigator.mediaDevices.getUserMedia({
                 video:
-                { facingMode: 
-                    { 
+                {
+                    facingMode:
+                    {
                         exact: "environment"
-                    } 
-                }
-            }).then(stream => { video.srcObject = stream; imageCapture = new ImageCapture(stream.getVideoTracks()[0]);})
+                    },
+                    optional: [
+                        { minWidth: 320 },
+                        { minWidth: 640 },
+                        { minWidth: 1024 },
+                        { minWidth: 1280 },
+                        { minWidth: 1920 },
+                        { minWidth: 2560 },
+                    ]
+                },
+            }).then(stream => { video.srcObject = stream; imageCapture = new ImageCapture(stream.getVideoTracks()[0]); })
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
