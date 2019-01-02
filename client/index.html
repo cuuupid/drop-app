@@ -126,10 +126,10 @@
             navigator.mediaDevices.getUserMedia({
                 video:
                 {
-                    facingMode:
+                    /* facingMode:
                     {
                         exact: "environment"
-                    },
+                    }, */
                     width: 1920
                 },
             }).then(stream => { video.srcObject = stream; imageCapture = new ImageCapture(stream.getVideoTracks()[0]); })
