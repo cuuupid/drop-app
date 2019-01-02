@@ -220,4 +220,5 @@ video {
     max-width: 100%;
     left: 0;
     height: 70vh;
+    filter: contrast(200%) grayscale(100%);
 }

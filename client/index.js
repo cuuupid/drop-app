@@ -12,6 +12,7 @@ var app = new Vue({
         currency: '£',
         payees: [],
         colors: [],
+        img: null,
         receipt: '',
     },
     created: function () {
@@ -95,11 +96,33 @@ var app = new Vue({
         },
         scan: async function () {
             // TODO: run tesseract ocr on image
-            let ctx = document.createElement('canvas')
-            ctx.width = video.videoWidth
-            ctx.height = video.videoHeight
-            ctx.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-            let img = ctx.toDataURL('image/png')
+            let canvas = document.createElement('canvas')
+            canvas.filter = 'brightness(150%) contrast(200%) grayscale(100%)'
+            canvas.width = video.videoWidth
+            canvas.height = video.videoHeight
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+            let imageData = ctx.getImageData(0, 0, video.videoWidth, video.videoHeight)
+            let data = imageData.data
+            let contrast = 2
+            let intercept = 128 * (1 - contrast)
+            for (let i = 0; i < data.length; i += 4) {
+                data[i] = data[i] * contrast + intercept
+                data[i + 1] = data[i + 1] * contrast + intercept
+                data[i + 2] = data[i + 2] * contrast + intercept
+            }
+            let brightness;
+            let threshold = 180;
+            for (let i = 0; i < data.length; i += 4) {
+                brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2]
+                //brightness = brightness > threshold ? 255 : 0;
+                data[i] = brightness
+                data[i + 1] = brightness
+                data[i + 2] = brightness
+            }
+            ctx.putImageData(imageData, 0, 0)
+            let img = canvas.toDataURL('image/png')
+            this.img = img
             this.screen = 'user-selection'
             let result = await Tesseract.recognize(img, { lang: 'eng' }).catch(e => e ? console.error(e) : null)
             if (!!!result) return console.error('No result!!!')
