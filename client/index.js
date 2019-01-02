@@ -124,7 +124,10 @@ var app = new Vue({
             let img = canvas.toDataURL('image/png')
             this.img = img
             this.screen = 'user-selection'
-            let result = await Tesseract.recognize(img, { lang: 'eng' }).catch(e => e ? console.error(e) : null)
+            let result = await Tesseract.recognize(img, { 
+                lang: 'eng',
+                tessedit_char_whitelist: 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm:$. #' 
+            }).catch(e => e ? console.error(e) : null)
             if (!!!result) return console.error('No result!!!')
             this.receipt = result
         },
